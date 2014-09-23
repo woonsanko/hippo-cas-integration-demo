@@ -27,6 +27,7 @@ This project uses the Maven Cargo plugin to run the CMS and site locally in Tomc
 From the project root folder, execute:
 
   `$ mvn clean install`
+  
   `$ mvn -P cargo.run`
 
 
@@ -46,6 +47,7 @@ Building distribution
 To build a Tomcat distribution tarball containing only deployable artifacts:
 
   `$ mvn clean install`
+  
   `$ mvn -P dist`
 
 See also src/main/assembly/distribution.xml if you need to customize the distribution.
@@ -83,6 +85,7 @@ Hot deploy
 To hot deploy, redeploy or undeploy the CMS or site:
 
   `$ cd cms (or site)`
+  
   `$ mvn cargo:redeploy (or cargo:undeploy, or cargo:deploy)`
 
 Automatic Export
