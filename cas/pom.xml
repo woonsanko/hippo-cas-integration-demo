@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.onehippo.forge.hippocasintegdemo</groupId>
+    <artifactId>hippocasintegdemo</artifactId>
+    <version>1.01.00-SNAPSHOT</version>
+  </parent>
+
+  <name>Hippo CAS Integration Demo CAS Server Application</name>
+  <description>Hippo CAS Integration Demo CAS Server Application</description>
+  <artifactId>hippocasintegdemo-cas</artifactId>
+  <packaging>war</packaging>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.jasig.cas</groupId>
+      <artifactId>cas-server-webapp</artifactId>
+      <type>war</type>
+      <scope>runtime</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>cas</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <overlays>
+            <overlay>
+              <groupId>org.jasig.cas</groupId>
+              <artifactId>cas-server-webapp</artifactId>
+            </overlay>
+          </overlays>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

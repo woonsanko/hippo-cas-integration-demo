@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><sv:node xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:h="http://www.onehippo.org/jcr/xmlimport" sv:name="editor" h:merge="combine">
+  <sv:property sv:name="hipposys:members" sv:type="String" h:merge="override" sv:multiple="true">
+    <sv:value>editor</sv:value>
+    <sv:value>casuser</sv:value>
+  </sv:property>
+</sv:node>
