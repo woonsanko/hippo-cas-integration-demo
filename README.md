@@ -16,10 +16,7 @@ From the project root folder, execute:
 
 Basic Test Cases
 ================
-  - Visit http://localhost:8080/cms/
-  - You will be redirected to a login page in http://localhost:8080/cas/...
-  - Login by **editor/Mellon** or **author/Mellon**
-  - You will be redirected to Hippo CMS UI without any more login.
-
-Access the CMS at http://localhost:8080/cms, and the site at http://localhost:8080/site
-Logs are located in target/tomcat7x/logs
+  1. Open a browser and visit *http://localhost:8080/cms/*
+  1. You will be redirected to a login page in *http://localhost:8080/cas/...*
+  1. Login by **editor/Mellon** or **author/Mellon**
+  1. You will be redirected to Hippo CMS UI without any more login.
