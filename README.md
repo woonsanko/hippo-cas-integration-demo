@@ -15,7 +15,7 @@ The following is most important core components, additionally implemented based 
       (This document has brief explanations about the role of custom security providers.) 
     - https://issues.onehippo.com/browse/CMS7-8085
     - https://issues.onehippo.com/browse/REPO-996
-    - https://issues.onehippo.com/browse/CMS7-8069 (In advanced case, you might want to customize the default logout behavior as well.)
+    - https://issues.onehippo.com/browse/CMS7-8069 (In advanced cases, you might want to customize the default logout behavior as well.)
 
 
 Prerequisites
