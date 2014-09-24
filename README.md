@@ -41,14 +41,14 @@ Test Cases
 
 Basic Test Case
 ---------------
-  1. Open a browser and visit *http://localhost:8080/cms/*
+  1. Start a new browser session and visit *http://localhost:8080/cms/*
   1. You will be redirected to a login page in *http://localhost:8080/cas/...*
   1. Login by **editor/Mellon** or **author/Mellon**
   1. You will be redirected to Hippo CMS UI without any more login.
 
 Test Case with admin
 --------------------
-  1. Open a browser and visit *http://localhost:8080/cms/*
+  1. Start a new browser session and visit *http://localhost:8080/cms/*
   1. You will be redirected to a login page in *http://localhost:8080/cas/...*
   1. Login by **admin/Mellon**
   1. You will see the default CMS Login page again because **admin** user is not set to *cas* custom security provider.
