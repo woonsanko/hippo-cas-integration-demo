@@ -5,7 +5,7 @@ What is **Hippo CAS Integration Demo**
 
 This project uses Jasig CAS Service Web Application and Jasig CAS Client Library of [Central Authentication Service project] [2] simply because it is most convenient to use those modules as Maven dependencies and very easy to demonstrate how to integrate Hippo CMS with Single Sign-on solutions. Most of this integration method can be applied to other integration scenarios with other Single Sign-on products or solutions than CAS.
 
-The following is most important core components, additionally implemented based on a skeletal project generated from Hippo 7.9.2 archetype:
+The following is most important core components, additionally implemented based on a skeletal project generated from Hippo CMS 7.9.2 archetype:
 - **cas** web application module : Maven submodule project which overlays Jasig CAS web application to provide the default CAS authentication service. The default *cargo.run* Maven profile deploys **cas** module onto Tomcat for easier testing.
 - **SSOExampleCMSLoginFilter** : Example servlet filter to be deployed in **cms** web application. This filter should be configured and invoked after all the Jasig Client servlet filters and before Hippo CMS related filters, so this filter is responsible for reading SSO Ticket at runtime and setting **UserCredentials** request attribute for CMS UI application.
 - **CASDelegatingSecurityProvider** : Example custom security provider, responsible for authenticating based on CAS SSO ticket.
