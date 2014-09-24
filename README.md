@@ -52,6 +52,36 @@ Test Case with admin
   1. You will be redirected to a login page in *http://localhost:8080/cas/...*
   1. Login by **admin/Mellon**
   1. You will see the default CMS Login page again because **admin** user is not set to *cas* custom security provider.
+  1. You can still continue to log on by **admin/admin**.
+
+
+Configurations
+==============
+
+CAS Authentication Users
+------------------------
+
+By default, the users data are stored in the overlayed [cas/src/main/webapp/WEB-INF/deployerConfigContext.xml](cas/src/main/webapp/WEB-INF/deployerConfigContext.xml) file like the following:
+
+    <bean id="primaryAuthenticationHandler"
+          class="org.jasig.cas.authentication.AcceptUsersAuthenticationHandler">
+        <property name="users">
+            <map>
+                <entry key="casuser" value="Mellon"/>
+                <!-- Adding CMS users for demonstration purpose. -->
+                <entry key="admin" value="Mellon"/>
+                <entry key="editor" value="Mellon"/>
+                <entry key="author" value="Mellon"/>
+            </map>
+        </property>
+    </bean>
+
+
+Hippo CMS Authentication Provider for users
+-------------------------------------------
+- In *Admin* perspective of CMS UI, navigate to *Users* panel. You can select and edit a user including **security provider** field.
+- The **cas** custom security provider (for this CAS integration) was installed in */hippo:configuration/hippo:security/cas* in this project.
+
 
 
 [1]: http://en.wikipedia.org/wiki/Central_Authentication_Service    "Central Authentication Service (CAS)"
