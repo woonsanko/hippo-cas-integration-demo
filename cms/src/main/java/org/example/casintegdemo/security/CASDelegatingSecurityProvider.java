@@ -24,11 +24,12 @@ import javax.jcr.SimpleCredentials;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.jackrabbit.api.security.user.UserManager;
-import org.example.casintegdemo.filter.SSOUserState;
 import org.hippoecm.repository.security.DelegatingSecurityProvider;
 import org.hippoecm.repository.security.RepositorySecurityProvider;
 import org.hippoecm.repository.security.user.DelegatingHippoUserManager;
 import org.hippoecm.repository.security.user.HippoUserManager;
+import org.jasig.cas.client.util.AssertionHolder;
+import org.jasig.cas.client.validation.Assertion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,17 +97,37 @@ public class CASDelegatingSecurityProvider extends DelegatingSecurityProvider {
      */
     protected boolean validateAuthentication(SimpleCredentials creds) throws RepositoryException {
         log.info("CASDelegatingSecurityProvider validating credentials: {}", creds);
-        // Asserting must have been done by the *TicketValidationFilter* and the assertion thread local variable
-        // must have been set by AssertionThreadLocalFilter already.
-        // So, simply check if you have assertion object in the thread local.
-//        Assertion assertion = AssertionHolder.getAssertion();
-//        log.info("Assertion: {}", assertion);
-//        return assertion != null;
 
-        String casNetId = (String) creds.getAttribute(SSOUserState.CAS_NET_ID_ATTR);
+        SSOUserState userState = SSOExampleCMSLoginFilter.getCurrentSSOUserState();
 
-        if (StringUtils.isNotBlank(casNetId)) {
-            return true;
+        /*
+         * If userState found in the current thread context, this authentication request came from
+         * CMS application.
+         * Otherwise, this authentication request came from SITE application (e.g, channel manager rest service).
+         * 
+         * If the authentication request comes from CMS application, you can simply use
+         * <code>Assertion</code> CAS Client API which is able to validate the user automatically.
+         * Otherwise, you might want to allow access to the caller based on <code>SSOUserState.CAS_NET_ID_ATTR</code>
+         * extra attribute from the credentials for Channel Manager (in /site application) integration.
+         */
+
+        if (userState != null) {
+
+            // Asserting must have been done by the *TicketValidationFilter* and the assertion thread local variable
+            // must have been set by AssertionThreadLocalFilter already.
+            // So, simply check if you have assertion object in the thread local.
+            Assertion assertion = AssertionHolder.getAssertion();
+            log.info("Authentication assertion: {}", assertion);
+            return assertion != null;
+
+        } else {
+
+            String casNetId = (String) creds.getAttribute(SSOUserState.CAS_NET_ID_ATTR);
+
+            if (StringUtils.isNotBlank(casNetId)) {
+                log.info("Authentication allowed to: {}", casNetId);
+                return true;
+            }
         }
 
         return false;

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.example.casintegdemo.filter;
+package org.example.casintegdemo.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +44,8 @@ public class SSOExampleCMSLoginFilter implements Filter {
 
     private static final String SSO_USER_STATE = SSOUserState.class.getName();
 
+    private static ThreadLocal<SSOUserState> tlCurrentSSOUserState = new ThreadLocal<SSOUserState>();
+
     private String [] prefixExclusions;
     private String [] suffixExclusions;
 
@@ -58,6 +60,7 @@ public class SSOExampleCMSLoginFilter implements Filter {
             ServletException {
 
         if (request instanceof HttpServletRequest) {
+
             HttpServletRequest req = (HttpServletRequest) request;
 
             // If the request path is for static resources such as images, css, etc., don't continue.
@@ -92,13 +95,28 @@ public class SSOExampleCMSLoginFilter implements Filter {
             if (userState != null && userState.getSessionId().equals(session.getId())) {
                 req.setAttribute(UserCredentials.class.getName(), userState.getCredentials());
             }
-        }
 
-        chain.doFilter(request, response);
+            try {
+                tlCurrentSSOUserState.set(userState);
+                chain.doFilter(request, response);
+            } finally {
+                tlCurrentSSOUserState.remove();
+            }
+        } else {
+            chain.doFilter(request, response);
+        }
     }
 
     @Override
     public void destroy() {
+    }
+
+    /**
+     * Get current <code>SSOUserState</code> instance from the current thread local context.
+     * @return
+     */
+    static SSOUserState getCurrentSSOUserState() {
+        return tlCurrentSSOUserState.get();
     }
 
     /**

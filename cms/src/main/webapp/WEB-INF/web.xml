@@ -65,7 +65,7 @@
 
   <filter>
     <filter-name>SSOExampleCMSLoginFilter</filter-name>
-    <filter-class>org.example.casintegdemo.filter.SSOExampleCMSLoginFilter</filter-class>
+    <filter-class>org.example.casintegdemo.security.SSOExampleCMSLoginFilter</filter-class>
     <init-param>
       <param-name>prefixExclusions</param-name>
       <param-value></param-value>

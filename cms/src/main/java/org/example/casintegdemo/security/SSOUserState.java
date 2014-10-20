@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.example.casintegdemo.filter;
+package org.example.casintegdemo.security;
 
 import java.io.Serializable;
 
@@ -25,25 +25,25 @@ import org.hippoecm.frontend.model.UserCredentials;
 /**
  * SSO User State object which contains a pair of JSESSIONID and <code>UserCredentials</code>.
  */
-public class SSOUserState implements Serializable {
+class SSOUserState implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String CAS_NET_ID_ATTR = SSOUserState.class.getName() + ".cas.net.id";
+    static final String CAS_NET_ID_ATTR = SSOUserState.class.getName() + ".cas.net.id";
 
     private final UserCredentials credentials;
     private final String sessionId;
 
-    public SSOUserState(final UserCredentials credentials, final String sessionId) {
+    SSOUserState(final UserCredentials credentials, final String sessionId) {
         this.credentials = credentials;
         this.sessionId = sessionId;
     }
 
-    public UserCredentials getCredentials() {
+    UserCredentials getCredentials() {
         return credentials;
     }
 
-    public String getSessionId() {
+    String getSessionId() {
         return sessionId;
     }
 
