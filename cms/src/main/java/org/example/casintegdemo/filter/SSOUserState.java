@@ -29,6 +29,8 @@ public class SSOUserState implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String CAS_NET_ID_ATTR = SSOUserState.class.getName() + ".cas.net.id";
+
     private final UserCredentials credentials;
     private final String sessionId;
 

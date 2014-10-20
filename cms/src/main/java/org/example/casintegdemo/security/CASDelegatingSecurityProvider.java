@@ -22,13 +22,13 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.jackrabbit.api.security.user.UserManager;
+import org.example.casintegdemo.filter.SSOUserState;
 import org.hippoecm.repository.security.DelegatingSecurityProvider;
 import org.hippoecm.repository.security.RepositorySecurityProvider;
 import org.hippoecm.repository.security.user.DelegatingHippoUserManager;
 import org.hippoecm.repository.security.user.HippoUserManager;
-import org.jasig.cas.client.util.AssertionHolder;
-import org.jasig.cas.client.validation.Assertion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,9 +99,17 @@ public class CASDelegatingSecurityProvider extends DelegatingSecurityProvider {
         // Asserting must have been done by the *TicketValidationFilter* and the assertion thread local variable
         // must have been set by AssertionThreadLocalFilter already.
         // So, simply check if you have assertion object in the thread local.
-        Assertion assertion = AssertionHolder.getAssertion();
-        log.info("Assertion: {}", assertion);
-        return assertion != null;
+//        Assertion assertion = AssertionHolder.getAssertion();
+//        log.info("Assertion: {}", assertion);
+//        return assertion != null;
+
+        String casNetId = (String) creds.getAttribute(SSOUserState.CAS_NET_ID_ATTR);
+
+        if (StringUtils.isNotBlank(casNetId)) {
+            return true;
+        }
+
+        return false;
     }
 
 }

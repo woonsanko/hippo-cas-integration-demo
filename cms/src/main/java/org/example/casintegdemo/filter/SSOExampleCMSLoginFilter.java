@@ -21,6 +21,7 @@ package org.example.casintegdemo.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.jcr.SimpleCredentials;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -78,7 +79,9 @@ public class SSOExampleCMSLoginFilter implements Filter {
                 if (netId != null) {
                     log.info("NetID: {}", netId);
                     // Enter any dummy string which must not be an empty string.
-                    userState = new SSOUserState(new UserCredentials(netId, "DUMMY"), session.getId());
+                    SimpleCredentials creds = new SimpleCredentials(netId, "DUMMY".toCharArray());
+                    creds.setAttribute(SSOUserState.CAS_NET_ID_ATTR, netId);
+                    userState = new SSOUserState(new UserCredentials(creds), session.getId());
                     session.setAttribute(SSO_USER_STATE, userState);
                 }
             }
